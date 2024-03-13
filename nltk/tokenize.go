@@ -43,6 +43,7 @@ func FreqDist(words []string) map[string]int {
 func ConvertWordsVocabularyNCM(vocabulary map[string]float64, ncm []string) {
 	var maps = make(map[string][]string)
 
+	
 	for key, value := range vocabulary {
 		for _, classifc := range ncm {
 			if ncm, err := strconv.ParseFloat(classifc, 64); err == nil {
@@ -133,6 +134,7 @@ func RadicalExtract(word string) string {
 
 // ExtractChar ...
 func ExtractChar(word string) string {
+	word = strings.ToLower(word)
 	var extracted = true
 
 	dictionaryVowels := []string{"a", "e", "i", "o", "u"}

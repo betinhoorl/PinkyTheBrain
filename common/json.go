@@ -28,8 +28,20 @@ func ReadJSONToken(fileName string) map[string][]string {
 
 // WriteJSONToken ...
 func WriteJSONToken(fileName string, jsonStream map[string][]string) {
-	file, _ := os.OpenFile(fileName, os.O_CREATE, os.ModePerm)
-	defer file.Close()
-	encoder := json.NewEncoder(file)
-	encoder.Encode(jsonStream)
+	// file, _ := os.OpenFile(fileName, os.O_CREATE, os.ModePerm)
+	// log.Print("FILE: ", file) 
+	// defer file.Close()
+	// encoder := json.NewEncoder(file)
+	// encoder.Encode(jsonStream)
+
+	jsonString, err := json.Marshal(jsonStream)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = ioutil.WriteFile(fileName, jsonString, 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
+	
 }

@@ -12,7 +12,7 @@ import (
 func GetVocabulary() []string {
 	var vocab []string
 
-	file, err := os.Open("training.txt")
+	file, err := os.Open("training-30000.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,7 +43,7 @@ func GetVocabulary() []string {
 func GetVocabularyTraining() map[string]float64 {
 	var maps = make(map[string]float64)
 
-	file, err := os.Open("training.txt")
+	file, err := os.Open("training-30000.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

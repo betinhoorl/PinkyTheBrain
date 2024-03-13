@@ -1,7 +1,6 @@
 package cognitive
 
 import (
-	"log"
 	"math"
 	"sync/atomic"
 )
@@ -128,7 +127,7 @@ func (n *Naivebayes) LogScores(wordbook []string) (scores []float64, inx int, st
 		}
 		scores[index] = score
 
-		log.Print(class, ": ", score, "\n")
+		// log.Print(class, ": ", score, "\n")
 	}
 
 	inx, strict = findMax(scores)

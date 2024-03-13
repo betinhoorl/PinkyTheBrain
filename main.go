@@ -13,12 +13,15 @@ import (
 )
 
 func main() {
+
 	vocabularyNCM := nltk.GetVocabularyNCM()
 
+	log.Println("GERANANDO MODELO PARA TREINAMENTO DA REDE NEURAL... \n")
 	vocabularyTraining := nltk.GetVocabularyTraining()
 	patterns := nltk.ConvertWordsVocabulary(vocabularyTraining)
 	nltk.ConvertWordsVocabularyNCM(vocabularyTraining, vocabularyNCM)
 
+	log.Println("INICIANDO TREINAMENTO... \n")
 	naivebayes := cognitive.NewNaivebayes(vocabularyNCM)
 	naivebayes.TFIDF = true
 	var wordbook = common.ReadJSONToken("dictionary.json")
@@ -36,6 +39,11 @@ func main() {
 
 	// ANALISE TESTE DE DADOS
 	analyze := nltk.GetVocabularyTest()
+
+	log.Println("")
+	log.Println("                       EVIDENCIAS")
+	log.Println("*********************************************************")
+
 	for description, clasfisc := range analyze {
 		bagWord := []string{}
 		sentenceList := strings.SplitAfter(description, " ")
@@ -50,17 +58,18 @@ func main() {
 		if strconvNcm == ncm {
 			hitRate++
 		} else {
-			// log.Print("| DESCRIÇÃO: ", description, " => NCM PREVISTO: ", strconvNcm, " <=> PROPOSTO: ", ncm, "\n")
 			errorRate++
 		}
-
+		
+		log.Println("| DESCRIÇÃO: ", description, " => NCM PREVISTO: ", strconvNcm, " <=> PROPOSTO: ", ncm, "\n")
+		
 		sampling++
 	}
 
 	rate := ((float64(hitRate) * float64(100)) / float64(sampling))
 	log.Print("                       ANÁLISE \n")
 	log.Print("********************************************************* \n")
-	log.Print("| AMOSTRAGEM: ", sampling, " | ACERTOS: ", hitRate, " | ERROS: ", errorRate, " |  TAXA DE ACERTOS = ", fmt.Sprintf("%.2f", rate), " |")
+	log.Print("| AMOSTRAGEM: ", sampling, " | ACERTOS: ", hitRate, " | ERROS: ", errorRate, " |  TAXA DE ACERTOS = ", fmt.Sprintf("%.2f", rate), " |\n")
 
 	var lenght = 1
 
