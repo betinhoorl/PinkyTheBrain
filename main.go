@@ -15,9 +15,9 @@ import (
 func main() {
 	vocabularyNCM := nltk.GetVocabularyNCM()
 
-	//vocabularyTraining := nltk.GetVocabularyTraining()
-	//patterns := nltk.ConvertWordsVocabulary(vocabularyTraining)
-	//nltk.ConvertWordsVocabularyNCM(vocabularyTraining, vocabularyNCM)
+	vocabularyTraining := nltk.GetVocabularyTraining()
+	patterns := nltk.ConvertWordsVocabulary(vocabularyTraining)
+	nltk.ConvertWordsVocabularyNCM(vocabularyTraining, vocabularyNCM)
 
 	naivebayes := cognitive.NewNaivebayes(vocabularyNCM)
 	naivebayes.TFIDF = true
@@ -77,7 +77,7 @@ func main() {
 
 	neural := neuralnetwork.NewNeuralNetwork()
 	neural.FeedForward(lenght, lenght, 1)
-	//neural.Train(patterns, 1000, 0.6, 0.4, true)
+	neural.Train(patterns, 1000, 0.6, 0.4, true)
 	neural.SetContexts(1, contexts)
 	neural.Test(patternsTest)
 }
